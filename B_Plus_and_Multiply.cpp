@@ -12,27 +12,26 @@
 
 using namespace std;
 
-int n, i;
+int n, i, j, k;
 string s;
 
 long long modu = 1000000007;
 
 void solve(int T)
 {
-    cin >> n >> s;
-    vector<long long> a(n);
-    map<long long, long long> arr;
-    arr[0] = 1;
-    long long ans = 0;
-    for (i = 0; i < n; i++)
+    long long y, a, b;
+    cin >> y >> a >> b;
+    for (long long x = 1; x <= y; x *= a)
     {
-        a[i] = s[i] - '0';
-        if (i)
-            a[i] += a[i - 1];
+        if ((y - x) % b == 0)
+        {
+            cout << "Yes";
+            return;
+        }
+        if (a == 1)
+            break;
     }
-    for (i = 0; i < n; i++)
-        ans += ++arr[a[i] - i - 1] - 1;
-    cout << ans;
+    cout << "No";
 }
 
 int main()

@@ -12,26 +12,34 @@
 
 using namespace std;
 
-int n, i;
+int n, m, i, j, k;
 string s;
 
 long long modu = 1000000007;
 
 void solve(int T)
 {
-    cin >> n >> s;
-    vector<long long> a(n);
-    map<long long, long long> arr;
-    arr[0] = 1;
-    long long ans = 0;
+    cin >> s;
+    n = s.length();
+    long long a[26][26], count[26];
+    for (i = 0; i < 26; i++)
+        count[i] = 0;
+    for (i = 0; i < 26; i++)
+        for (j = 0; j < 26; j++)
+            a[i][j] = 0;
     for (i = 0; i < n; i++)
     {
-        a[i] = s[i] - '0';
-        if (i)
-            a[i] += a[i - 1];
+        k = s[i] - 'a';
+        for (j = 0; j < 26; j++)
+            a[j][k] += count[j];
+        count[k]++;
     }
-    for (i = 0; i < n; i++)
-        ans += ++arr[a[i] - i - 1] - 1;
+    long long ans = 0;
+    for (i = 0; i < 26; i++)
+        for (j = 0; j < 26; j++)
+            ans = max(ans, a[i][j]);
+    for (i = 0; i < 26; i++)
+        ans = max(ans, count[i]);
     cout << ans;
 }
 
@@ -47,7 +55,7 @@ int main()
     cin.tie(NULL);
 
     int t;
-    cin >> t;
+    t = 1;
     for (int i = 1; i <= t; i++)
     {
         solve(t);
